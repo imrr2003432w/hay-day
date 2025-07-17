@@ -54,6 +54,10 @@ p {
     transition: all 0.3s ease;
     width: calc(50% - 50px);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
 }
 
 .option:hover, .option.selected {
@@ -63,10 +67,11 @@ p {
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-.option img {
-    max-width: 100%;
-    border-radius: 5px;
-    margin-bottom: 10px;
+.option p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #333;
 }
 
 .selected-amount {
