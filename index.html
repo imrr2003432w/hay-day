@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شراء ألماس هاي داي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>متجر ألماس هاي داي</h1>
+        <p>اختر كمية الألماس التي تريد شراءها:</p>
+        <div class="diamonds-options">
+            <div class="option" data-amount="100">
+                <img src="https://via.placeholder.com/80x80.png?text=100" alt="100 ألماس">
+                <p>100 ألماسة</p>
+            </div>
+            <div class="option" data-amount="500">
+                <img src="https://via.placeholder.com/80x80.png?text=500" alt="500 ألماس">
+                <p>500 ألماسة</p>
+            </div>
+            <div class="option" data-amount="1000">
+                <img src="https://via.placeholder.com/80x80.png?text=1000" alt="1000 ألماس">
+                <p>1000 ألماسة</p>
+            </div>
+            <div class="option" data-amount="5000">
+                <img src="https://via.placeholder.com/80x80.png?text=5000" alt="5000 ألماس">
+                <p>5000 ألماسة</p>
+            </div>
+        </div>
+        <div class="selected-amount">
+            <p>الكمية المحددة: <span id="selected-diamonds">0</span> ألماسة</p>
+        </div>
+        <button id="purchase-btn">شراء</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
